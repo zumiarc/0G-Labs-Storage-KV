@@ -6,13 +6,36 @@
 - CPU: 2 cores
 - Disk: Matches the size of kv streams it maintains
 
-## Build
+## Installation
+Linux
 ```
+sudo apt-get update
+sudo apt-get install clang cmake build-essential pkg-config libssl-dev
+```
+
+1. Rustup
+```
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+2. Download the Source Code
+```
+git clone -b <latest_tag> https://github.com/0glabs/0g-storage-kv.git
+```
+3. Build
+```
+cd 0g-storage-kv
+
+# Build in release mode
 cargo build --release
 ```
 
 ## Configuration
-Copy the config_example.toml to config.toml and update the parameters:
+1.Copy the example configuration file and update it:
+```
+cp config_example.toml config.toml
+nano config.toml
+```
+2. Update the following fields in ```config.toml```:
 ```
 #######################################################################
 ###                   Key-Value Stream Options                      ###
@@ -60,10 +83,35 @@ zgs_node_urls = "http://127.0.0.1:5678,http://127.0.0.1:5679"
 
 log_config_file = "log_config"
 ```
+Use one of the following RPC if you encounter error
+```
+https://16600.rpc.thirdweb.com
+https://rpc.ankr.com/0g_newton
+https://0g.originstake.com/rpc-api 
+```
 
-## Run
+## Run Storage KV Node
 ```
 cd run
-
+```
+Run the KV service
+```
 ../target/release/zgs_kv --config config.toml
 ```
+For long-running sessions, consider using tmux or screen to run the node in the background.
+
+## Monitoring Node
+Check logs using ```log_config```
+
+## Updating Node
+To update to the latest version, pull the latest changes from the repository and rebuild:
+```
+git pull
+cargo build --release
+```
+
+Source: 
+- [0G Labs Storage KV Docs](https://docs.0g.ai/run-a-node/storage-node)
+- [Testnet Information](https://docs.0g.ai/run-a-node/testnet-information)
+- [Github](https://github.com/0glabs/0g-storage-kv)
+
