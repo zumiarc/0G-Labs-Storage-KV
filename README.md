@@ -1,15 +1,19 @@
-# 0G-Labs-Storage-KV
+## 0G-Labs-Storage-KV
 0G Storage KV is a key-value database abstraction built on top of the 0G storage layer. Files with specific tags uploaded to the storage layer are treated as KV files. Users who wish to use KV can set up a service called KV Node themselves. This service monitors, downloads and deserializes KV files. It then reconstructs the KV database locally by replaying the KV database operations contained in the KV files.
 
-Hardware Requirement
+## Hardware Requirement
 - Memory: 4 GB RAM
 - CPU: 2 cores
 - Disk: Matches the size of kv streams it maintains
-Build
-cargo build --release
-Configuration
-Copy the config_example.toml to config.toml and update the parameters:
 
+## Build
+```
+cargo build --release
+```
+
+## Configuration
+Copy the config_example.toml to config.toml and update the parameters:
+```
 #######################################################################
 ###                   Key-Value Stream Options                      ###
 #######################################################################
@@ -55,7 +59,11 @@ zgs_node_urls = "http://127.0.0.1:5678,http://127.0.0.1:5679"
 #######################################################################
 
 log_config_file = "log_config"
-Run
+```
+
+## Run
+```
 cd run
 
 ../target/release/zgs_kv --config config.toml
+```
